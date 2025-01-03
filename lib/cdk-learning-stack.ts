@@ -72,5 +72,15 @@ export class CdkLearningStack extends cdk.Stack {
 
     // run : cdk deploy <-- will get the result expiration day is 6
     // run : cdk deploy --parameters duration=9 <-- will get the result expiration day is 9
+
+    /* === use cdk destroy <name of your bucket in this case the name is CdkLearningStack === >
+           --- cdk destroy CdkLearningStack
+    
+      - this command will not delete s3 bucket created with L2 or L3 level 
+        --- those s3 bucket need to be deleted manually on the console
+      - *** be careful === don't delete the bucket that have -assets- this on is created by cdk
+        --- if you delete this one 
+        --- you will not be able to delete any thing else 
+    */
   }
 }
