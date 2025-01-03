@@ -64,7 +64,7 @@ export class CdkLearningStack extends cdk.Stack {
       type: 'Number',
     })
 
-    const myL5Bucket = new Bucket(this, 'MyL4bucket', {
+    const myL5Bucket = new Bucket(this, 'MyL5bucket', {
       lifecycleRules: [
         { expiration: cdk.Duration.days(duration.valueAsNumber) },
       ],
