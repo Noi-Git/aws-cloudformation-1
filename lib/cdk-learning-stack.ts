@@ -48,5 +48,9 @@ export class CdkLearningStack extends cdk.Stack {
       lifecycleRules: [{ expiration: cdk.Duration.days(2) }],
     })
     console.log('🚀 ~ myL4Bucket:', myL4Bucket.bucketName)
+
+    new cdk.CfnOutput(this, 'MyL4BucketName', {
+      value: myL4Bucket.bucketName,
+    })
   }
 }
