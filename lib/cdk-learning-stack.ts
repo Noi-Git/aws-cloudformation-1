@@ -43,5 +43,10 @@ export class CdkLearningStack extends cdk.Stack {
 
     // call the L3Bucket
     new L3Bucket(this, 'NoiL3Bucket', 3)
+
+    const myL4Bucket = new Bucket(this, 'MyL4bucket', {
+      lifecycleRules: [{ expiration: cdk.Duration.days(2) }],
+    })
+    console.log('🚀 ~ myL4Bucket:', myL4Bucket.bucketName)
   }
 }
