@@ -47,10 +47,30 @@ export class CdkLearningStack extends cdk.Stack {
     const myL4Bucket = new Bucket(this, 'MyL4bucket', {
       lifecycleRules: [{ expiration: cdk.Duration.days(2) }],
     })
+
+    // find bucket name using console.log
     console.log('🚀 ~ myL4Bucket:', myL4Bucket.bucketName)
 
+    // find bucket name using CfnOutput()
     new cdk.CfnOutput(this, 'MyL4BucketName', {
       value: myL4Bucket.bucketName,
     })
+
+    // add expiration day to the MyL5Bucket using parameter
+    const duration = new cdk.CfnParameter(this, 'duration', {
+      default: 6,
+      minValue: 1,
+      maxValue: 10,
+      type: 'Number',
+    })
+
+    const myL5Bucket = new Bucket(this, 'MyL4bucket', {
+      lifecycleRules: [
+        { expiration: cdk.Duration.days(duration.valueAsNumber) },
+      ],
+    })
+
+    // run : cdk deploy <-- will get the result expiration day is 6
+    // run : cdk deploy --parameters duration=9 <-- will get the result expiration day is 9
   }
 }
