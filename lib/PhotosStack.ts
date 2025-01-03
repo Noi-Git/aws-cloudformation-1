@@ -17,7 +17,7 @@ export class PhotosStack extends cdk.Stack {
     })
 
     ;(myBucket.node.defaultChild as CfnBucket).overrideLogicalId(
-      'noi-photo-bucket-2-4l3k4'
+      'noiPhotoBucket2'
     )
   }
 }
