@@ -3,8 +3,16 @@ import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3'
 import { Construct } from 'constructs'
 
 class L3Bucket extends Construct {
-  constructor(scope: Construct, id: string) {
+  constructor(scope: Construct, id: string, expirations: number) {
     super(scope, id)
+
+    new Bucket(this, 'Noi3Bucket', {
+      lifecycleRules: [
+        {
+          expiration: cdk.Duration.days(expirations),
+        },
+      ],
+    })
   }
 }
 export class CdkLearningStack extends cdk.Stack {
