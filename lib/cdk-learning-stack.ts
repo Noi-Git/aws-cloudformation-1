@@ -40,5 +40,8 @@ export class CdkLearningStack extends cdk.Stack {
         ],
       },
     })
+
+    // call the L3Bucket
+    new L3Bucket(this, 'NoiL3Bucket', 3)
   }
 }
