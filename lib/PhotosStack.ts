@@ -8,7 +8,16 @@ export class PhotosStack extends cdk.Stack {
 
     new Bucket(this, 'PhotosBucket', {
       // provide name for the bucket ourself instead of cdk randomly generated
-      bucketName: 'noi-photosStack-skdlkdi',
+      bucketName: 'noi-photos-stack-skdlkdi3453',
     })
+
+    // === Overide logical ID created when creating stack
+    const myBucket = new Bucket(this, 'PhotosBucket2', {
+      bucketName: 'noi-photo-bucket-overide-23443',
+    })
+
+    ;(myBucket.node.defaultChild as CfnBucket).overrideLogicalId(
+      'noi-photo-bucket-2-4l3k4'
+    )
   }
 }
