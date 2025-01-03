@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import * as cdk from 'aws-cdk-lib'
-import { CdkLearningStack } from '../lib/cdk-learning-stack'
+import { PhotosStack } from '../lib/PhotosStack'
+import { Bucket } from 'aws-cdk-lib/aws-s3'
 
 const app = new cdk.App()
-new CdkLearningStack(app, 'CdkLearningStack', {})
+new PhotosStack(app, 'PhotosStack', {})
