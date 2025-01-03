@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib'
-import { Bucket } from 'aws-cdk-lib/aws-s3'
+import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3'
 import { Construct } from 'constructs'
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
@@ -15,6 +15,18 @@ export class CdkLearningStack extends cdk.Stack {
           expiration: cdk.Duration.days(2),
         },
       ],
+    })
+
+    // second way -- create a L1 construct
+    new CfnBucket(this, 'NoiL1Bucket', {
+      lifecycleConfiguration: {
+        rules: [
+          {
+            expirationInDays: 1,
+            status: 'Enabled',
+          },
+        ],
+      },
     })
   }
 }
