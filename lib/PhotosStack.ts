@@ -3,21 +3,24 @@ import { Bucket, CfnBucket } from 'aws-cdk-lib/aws-s3'
 import { Construct } from 'constructs'
 
 export class PhotosStack extends cdk.Stack {
+  // step 1: create a private suffix name
+  private stackSuffix: string
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props)
 
-    new Bucket(this, 'PhotosBucket', {
-      // provide name for the bucket ourself instead of cdk randomly generated
-      bucketName: 'noi-photos-stack-skdlkdi3453',
-    })
+    // step 4: call the initializeSuffix function
+    this.initializeSuffix()
 
-    // === Overide logical ID created when creating stack
-    const myBucket = new Bucket(this, 'PhotosBucket2', {
-      bucketName: 'noi-photo-bucket-overide-23443',
+    // step 5: use the suffix created for physical id
+    new Bucket(this, 'PhotosBucket2', {
+      bucketName: `noi-photo-bucket-overide-${this.stackSuffix}`,
     })
-
-    ;(myBucket.node.defaultChild as CfnBucket).overrideLogicalId(
-      'noiPhotoBucket2'
-    )
+  }
+  // step 2: initialize
+  private initializeSuffix() {
+    // step 3: get the second index of the stack id
+    const shortStackId = cdk.Fn.select(2, cdk.Fn.split('/', this.stackId))
+    const stackSuffix = cdk.Fn.select(4, cdk.Fn.split('-', shortStackId))
   }
 }
