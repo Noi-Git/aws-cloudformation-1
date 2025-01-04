@@ -7,21 +7,24 @@ import {
   Runtime,
 } from 'aws-cdk-lib/aws-lambda'
 
+interface PhotosHandlerStackProps extends cdk.StackProps {
+  targetBucketArn: string
+}
+
 export class PhotosHandlerStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: PhotosHandlerStackProps) {
     super(scope, id, props)
 
-    const targetBucket = Fn.importValue('noi-photos-bucket')
-
-    // this stack will contain Lamda
     new LambdaFunction(this, 'PhotosHandler', {
       runtime: Runtime.NODEJS_16_X,
       handler: 'index.handler',
-      code: Code.fromInline(`exports.handler = async(event) => {
-        console.log("hello!: " + process.env.TARGET_BUCKET)
-        }`),
+      code: Code.fromInline(`
+            exports.handler = async (event) => {
+              console.log("hello!: " + process.env.TARGET_BUCKET)
+            };
+          `),
       environment: {
-        TARGET_BUCKET: targetBucket,
+        TARGET_BUCKET: props.targetBucketArn,
       },
     })
   }
